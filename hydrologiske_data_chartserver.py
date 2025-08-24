@@ -71,7 +71,7 @@ def laste_ned_serier_fra_hydra(df, workers):
     return pd.concat(results).reset_index(drop=True)
 
 if __name__ == "__main__":
-    df_stations = pd.read_csv("stations.csv", dtype={"serienavn": str, "maalestasjon": str})
+    df_stations = pd.read_csv("hydrologiske_data_chartserver_stations.csv", dtype={"serienavn": str, "maalestasjon": str})
     # note: only do a subset of the stations for testing. Try df_stations[0:5] in the line below
     df_all = laste_ned_serier_fra_hydra(df_stations,workers=10)  
     df_all.to_csv("hydrologiske_data_chartserver.csv")
