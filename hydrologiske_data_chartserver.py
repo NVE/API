@@ -15,9 +15,6 @@ def les_parametere():
             ["Mod snøens vannekvivalent (m)", 6005,3], #snømagasin
             ["Mod markvannsinnhold (m)", 6013, 3],
             ["Mod grunnvannsvolum",6018, 3], 
-            #["Mod sum fordampning fra sjø", 6002, 3],
-            #["Mod snødekningsgrad (%)", 6008, 3],
-            #["Mod grunnvannsvolum",6017, 3], # ?
         ],
         columns = ["Parameter","parameterkode","versjon"]
     )
