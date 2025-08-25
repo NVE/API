@@ -69,6 +69,7 @@ def les_finsk_magasinfylling():
     if not ((0.0 - 0.00001) <= fylling <= (100.0 + 0.00001)):
         print("Fant magasinfylling utenfor [0, 100], gir opp")
         return
+    print(fylling)
 
     return fylling
 
