@@ -24,7 +24,7 @@ def hent_dato(måned=0, dato=0):
         dd = f"{dato:02d}"
     return r, mm, dd, today
 
-def les_finske_magasiner():
+def les_finsk_magasinfylling():
 
     link = "http://wwwi2.ymparisto.fi/i2/95/prev_week.txt"
     f = requests.get(link)
