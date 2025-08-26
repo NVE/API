@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 import json
 
-def hent_dato(måned=0, dato=0):
+def get_date(måned=0, dato=0):
     today = dt.date.today()
 
     idx = (today.weekday() + 1) % 7
@@ -24,7 +24,7 @@ def hent_dato(måned=0, dato=0):
         dd = f"{dato:02d}"
     return r, mm, dd, today
 
-def les_finsk_magasinfylling():
+def finnish_reservoir_level_last_week():
 
     link = "http://wwwi2.ymparisto.fi/i2/95/prev_week.txt"
     f = requests.get(link)
@@ -54,7 +54,7 @@ def les_finsk_magasinfylling():
 
     fylling["mmdd"]=fylling["mmdd"].astype(str)
 
-    r, mm, dd, today = hent_dato()
+    r, mm, dd, today = get_date()
 
     print(f"leser magasin for datoen {r.year}-{mm}-{dd}")
 
@@ -74,4 +74,4 @@ def les_finsk_magasinfylling():
     return fylling
 
 if __name__ == "__main__":
-    les_finsk_magasinfylling()
+    finnish_reservoir_level_last_week()
