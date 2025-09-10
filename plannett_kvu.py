@@ -5,12 +5,12 @@ from shapely.geometry import Point, MultiPoint  # Importing Point and MultiPoint
 
 '''
 KVU=konseptvalgutredning.
-Layer: Konseptvalgutredninger (ID: 2)
+Layer: Konseptvalgutredninger (ID: 8)
 '''
 
 def plannett_kvu():
     # URL of the service, WMS
-    url = 'https://gis3.nve.no/map/rest/services/Mapservices/PlanNettv2/MapServer/2/query'
+    url = 'https://gis3.nve.no/map/rest/services/Mapservices/PlanNettv2/MapServer/8/query'
 
     # Function to fetch data with pagination
     def fetch_data_with_pagination(url, params, batch_size=1000):
