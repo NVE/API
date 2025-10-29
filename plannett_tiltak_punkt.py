@@ -3,6 +3,11 @@ import pandas as pd
 import geopandas as gpd
 from shapely.geometry import Point, MultiPoint  # Importing Point and MultiPoint classes
 
+'''
+Merk at dette kun vil laste ned data fra før Plannett begynte å kartfeste tiltak som polygon.
+Fra 2025 er det ikke lenger mulig å kartfeste tiltak med punkt i plannett, men at man må benytte polygon.
+'''
+
 def plannett_tiltak_punkt():
     # URL of the service
     url = 'https://gis3.nve.no/map/rest/services/Mapservices/PlanNettv2/MapServer/0/query'
