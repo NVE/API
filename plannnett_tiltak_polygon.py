@@ -3,6 +3,10 @@ import pandas as pd
 import geopandas as gpd
 from shapely.geometry import Point, MultiPoint, Polygon  
 
+'''
+Merk at dette kun vil laste ned data fra etter Plannett begynte å kartfeste tiltak som polygon.
+Fra 2025 er det ikke lenger mulig å kartfeste tiltak med punkt i plannett, men at man må benytte polygon.
+'''
 
 def plannett_tiltak_polygon():
     # URL of the service, WMS
@@ -103,4 +107,5 @@ def plannett_tiltak_polygon():
     gdf.to_excel("plannett_tiltak_polygon.xlsx", index=False)
 
 if __name__ == '__main__':
+
     plannett_tiltak_polygon()
