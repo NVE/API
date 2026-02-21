@@ -2,7 +2,7 @@ import requests
 import pandas as pd
 
 
-def historical_reservoir_levels_per_price_area():
+def norwegian_historical_reservoir_levels_per_price_area():
     # API endpoint
     url = "https://biapi.nve.no/magasinstatistikk/api/Magasinstatistikk/HentOffentligData"
 
@@ -28,7 +28,7 @@ def historical_reservoir_levels_per_price_area():
     df["price_area"]="NO"+df["price_area"].astype(str)
     df=df.sort_values(by=["price_area","date"], ascending=True).reset_index(drop=True)
 
-    df.to_excel("historical_reservoir_levels_per_price_area.xlsx")
+    df.to_excel("norwegian_historical_reservoir_levels_per_price_area.xlsx")
 
 if __name__ == '__main__':
-    historical_reservoir_levels_per_price_area()
+    norwegian_historical_reservoir_levels_per_price_area()
