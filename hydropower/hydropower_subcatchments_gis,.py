@@ -3,6 +3,12 @@ import pandas as pd
 import geopandas as gpd
 from shapely.geometry import Point, MultiPoint  # Importing Point and MultiPoint classes
 
+'''
+Columns:
+OBJECTID, objektType, delfeltNr, delfeltNavn, delfeltAreal_km2, vannkraftverkNr, vannkraftverkNavn, magasinNr, magasinNavn, 
+nesteDelfeltNr, delfeltFormal, vassdragsomradeNr, oppstromDelfeltListe, QNormalDelfelt6190_Mm3Aar, QNormalDelfelt9120_Mm3Aar, geometry
+'''
+
 
 def hydropower_subcatchments_gis():
     # URL of the service, WMS
