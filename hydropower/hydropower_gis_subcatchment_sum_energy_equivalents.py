@@ -47,7 +47,6 @@ def get_topo_utbygd():
     df=pd.read_excel("hydropower_gis_downstream_plants.xlsx")
     df=df[["vannkraftverknr","nedstromvannkraftverknr_liste"]].rename(columns={"vannkraftverknr":"vannkraftverkNr"})
 
-
     df["nedstromvannkraftverknr_liste"] = df["nedstromvannkraftverknr_liste"].where(df["nedstromvannkraftverknr_liste"].notna(), None)          # behold NaN som NaN/None
     df["nedstromvannkraftverknr_liste"] = df["nedstromvannkraftverknr_liste"].astype("string")                      # pandas string-dtype
     df["nedstromvannkraftverknr_liste"] = df["nedstromvannkraftverknr_liste"].str.split(",")
