@@ -15,7 +15,7 @@ import requests
 # 3	Vattenstånd	cm
 
 def inflow_smhi():
-    kobling=pd.read_excel("smhi_api_stasjoner.xlsx")
+    kobling=pd.read_excel("smhi_api_stations.xlsx")
 
     print(kobling)
 
