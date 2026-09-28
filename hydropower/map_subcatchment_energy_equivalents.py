@@ -28,47 +28,49 @@ def fetch_data_with_pagination(url, params, batch_size=1000):
             break
     return all_features
 
-params = {
-        'where': '1=1',  # True
-        'text': '',
-        'objectIds': '',
-        'time': '',
-        'timeRelation': 'esriTimeRelationOverlaps',
-        'geometry': '',
-        'geometryType': 'esriGeometryEnvelope',
-        'inSR': '',
-        'spatialRel': 'esriSpatialRelIntersects',
-        'distance': '',
-        'units': 'esriSRUnit_Meters',
-        'relationParam': '',
-        'outFields': '*', #* means returning all columns. You can replace this this with a list of columns out want to return.
-        'returnGeometry': True,
-        'returnTrueCurves': False,
-        'maxAllowableOffset': '',
-        'geometryPrecision': '',
-        'outSR': '',
-        'havingClause': '',
-        'returnIdsOnly': False,
-        'returnCountOnly': False,
-        'orderByFields': '',
-        'groupByFieldsForStatistics': '',
-        'outStatistics': '',
-        'returnZ': False,
-        'returnM': False,
-        'gdbVersion': '',
-        'historicMoment': '',
-        'returnDistinctValues': False,
-        'resultOffset': '',
-        'resultRecordCount': 1000,  # Set batch size to 1000
-        'returnExtentOnly': False,
-        'sqlFormat': 'none',
-        'datumTransformation': '',
-        'parameterValues': '',
-        'rangeValues': '',
-        'quantizationParameters': '',
-        'featureEncoding': 'esriDefault',
-        'f': 'pjson'
-    }
+def get_params(outfields='*'):
+    params = {
+            'where': '1=1',  # True
+            'text': '',
+            'objectIds': '',
+            'time': '',
+            'timeRelation': 'esriTimeRelationOverlaps',
+            'geometry': '',
+            'geometryType': 'esriGeometryEnvelope',
+            'inSR': '',
+            'spatialRel': 'esriSpatialRelIntersects',
+            'distance': '',
+            'units': 'esriSRUnit_Meters',
+            'relationParam': '',
+            'outFields': outfields, #* means returning all columns. You can replace this this with a list of columns out want to return.
+            'returnGeometry': True,
+            'returnTrueCurves': False,
+            'maxAllowableOffset': '',
+            'geometryPrecision': '',
+            'outSR': '',
+            'havingClause': '',
+            'returnIdsOnly': False,
+            'returnCountOnly': False,
+            'orderByFields': '',
+            'groupByFieldsForStatistics': '',
+            'outStatistics': '',
+            'returnZ': False,
+            'returnM': False,
+            'gdbVersion': '',
+            'historicMoment': '',
+            'returnDistinctValues': False,
+            'resultOffset': '',
+            'resultRecordCount': 1000,  # Set batch size to 1000
+            'returnExtentOnly': False,
+            'sqlFormat': 'none',
+            'datumTransformation': '',
+            'parameterValues': '',
+            'rangeValues': '',
+            'quantizationParameters': '',
+            'featureEncoding': 'esriDefault',
+            'f': 'pjson'
+        }
+    return params
 
 def hydropower_gis_subcatchment():
     # URL of the service, WMS
@@ -77,7 +79,7 @@ def hydropower_gis_subcatchment():
     # Parameters for the request
     
     # Fetch all features using pagination
-    all_features = fetch_data_with_pagination(url, params)
+    all_features = fetch_data_with_pagination(url, get_params('vannkraftverknr,oppstromDelfeltListe,delfeltNr'))
 
     # Extracting attributes and geometry coordinates
     filtered_features = [feature for feature in all_features 
@@ -112,16 +114,9 @@ def hydropower_gis_subcatchment():
 
     return gdf
 
-
-def get_delfelt():
-    #Run hydropower_gis_subcatchment.py to get excel file
-    df=pd.read_excel("hydropower_gis_subcatchment.xlsx")
-    df=df[["delfeltNr", "vannkraftverkNr", "oppstromDelfeltListe"]]
-    return df
-
 def finn_alle_delfelt(col, delfelt):
 
-    # Gå gjennom en og en rad og lage topomapping mag -> delfelt + oppstrøms
+    # Gå gjennom en og en rad og lage topomapping magasin -> delfelt + oppstrøms
     topo = []
 
     for i, row in delfelt.iterrows():
@@ -152,57 +147,11 @@ def get_topo_utbygd():
     # URL of the service, WMS
     url = 'https://kart.nve.no/enterprise/rest/services/Vannkraft1/MapServer/0/query'
 
-
-    # Parameters for the request
-    params = {
-        'where': '1=1',  # True
-        'text': '',
-        'objectIds': '',
-        'time': '',
-        'timeRelation': 'esriTimeRelationOverlaps',
-        'geometry': '',
-        'geometryType': 'esriGeometryEnvelope',
-        'inSR': '',
-        'spatialRel': 'esriSpatialRelIntersects',
-        'distance': '',
-        'units': 'esriSRUnit_Meters',
-        'relationParam': '',
-        'outFields': 'vannkraftverknr,nedstromvannkraftverknr_liste', #* means returning all parameters. You can replace this this with a list of columns out want to return.
-        'returnGeometry': True,
-        'returnTrueCurves': False,
-        'maxAllowableOffset': '',
-        'geometryPrecision': '',
-        'outSR': '',
-        'havingClause': '',
-        'returnIdsOnly': False,
-        'returnCountOnly': False,
-        'orderByFields': '',
-        'groupByFieldsForStatistics': '',
-        'outStatistics': '',
-        'returnZ': False,
-        'returnM': False,
-        'gdbVersion': '',
-        'historicMoment': '',
-        'returnDistinctValues': False,
-        'resultOffset': '',
-        'resultRecordCount': 1000,  # Set batch size to 1000
-        'returnExtentOnly': False,
-        'sqlFormat': 'none',
-        'datumTransformation': '',
-        'parameterValues': '',
-        'rangeValues': '',
-        'quantizationParameters': '',
-        'featureEncoding': 'esriDefault',
-        'f': 'pjson'
-    }
-
     # Fetch all features using pagination
-    all_features = fetch_data_with_pagination(url, params)
+    all_features = fetch_data_with_pagination(url, get_params('vannkraftverknr,nedstromvannkraftverknr_liste'))
 
     # Extracting attributes and geometry coordinates
     attributes = [feature['attributes'] for feature in all_features]
-    # geometry_x = [feature['geometry']['x'] for feature in all_features]
-    # geometry_y = [feature['geometry']['y'] for feature in all_features]
 
     # Create DataFrame
     df = pd.DataFrame(attributes)
@@ -213,8 +162,6 @@ def get_topo_utbygd():
     df["nedstromvannkraftverknr_liste"] = df["nedstromvannkraftverknr_liste"].astype("string")                      # pandas string-dtype
     df["nedstromvannkraftverknr_liste"] = df["nedstromvannkraftverknr_liste"].str.split(",")
     df = df.explode("nedstromvannkraftverknr_liste", ignore_index=True)
-
-    df.to_excel("topo_utbygd.xlsx", index=False)
     return df
 
 def legg_til_utbygd_prodvanntildelfelt(topo_kv, topo_utbygd):
@@ -247,9 +194,8 @@ def get_kraftverk():
 
     return df
 
-
 def hydropower_gis_subcatchment_sum_energy_equivalents():
-    delfelt = get_delfelt()
+    delfelt = hydropower_gis_subcatchment()
 
     print(delfelt)
 
@@ -274,7 +220,6 @@ def hydropower_gis_subcatchment_sum_energy_equivalents():
     enekv_sum=topo_kv.merge(vk[['vannkraftverkNr','EnEkv']], on="vannkraftverkNr")
 
     enekv_sum=enekv_sum.pivot_table(index="delfeltNr", values="EnEkv", aggfunc="sum").reset_index()
-    # enekv_sum.to_excel('hydropower_gis_subcatchment_sum_energy_equivalents.xlsx', index=False)
     return enekv_sum
 
 
@@ -285,7 +230,7 @@ def get_norge_flate():
 
 
     # Fetch all features using pagination
-    all_features = fetch_data_with_pagination(url, params)
+    all_features = fetch_data_with_pagination(url, get_params('OBJTYPE'))
 
     # Extracting attributes and geometry coordinates
     filtered_features = [feature for feature in all_features 
@@ -356,3 +301,4 @@ ax.set_title("Hvor er nedbøren mest verdt?", fontsize=30)
 ax.text(0.05, 0.95, " Kartet viser nedbørsfeltene til vannkraftverkene i \n Norge. Nedbørsfeltene er farget etter hvor mye energi \n man får fra hver dråpe nedbør gjennom kraftverkene på \n vei ned til havet. En sumenergiekvivalent på 1 betyr at \n man får 1 kWh med strøm for 1 m3 vann. Dette er \n direkte proporsjonalt med den utnyttede fallhøyden og \n virkningsgraden til kraftverkene i kaskaden. En \n energiekvivalent på 1 tilsvarer et fall på omtrent 400 m.", transform=ax.transAxes, fontsize=14,
         verticalalignment='top', bbox=props)
 fig.savefig('hvor_er_nedbøren_mest_verdt_blå.png')
+fig.savefig('hvor_er_nedbøren_mest_verdt_blå.svg')
