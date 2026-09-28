@@ -265,27 +265,24 @@ def get_norge_flate():
     print(gdf["OBJTYPE"].unique())
     gdf=gdf[gdf["OBJTYPE"]!="Havflate"]
 
+    #gjøre om til 1 polygon
+    gdf['dummy'] = 1
+    gdf = gdf.dissolve(by='dummy')
+    gdf = gdf.reset_index()
+    del gdf['dummy']
+    print(gdf)
+
     return gdf
-
-
 
 sum_eneq=hydropower_gis_subcatchment_sum_energy_equivalents()
 delfelt=hydropower_gis_subcatchment()
 delfelt=delfelt.merge(sum_eneq, on="delfeltNr", how="outer")
 norge_flate = get_norge_flate()
 
-#gjøre om til 1 polygon
-norge_flate['dummy'] = 1
-norge_flate = norge_flate.dissolve(by='dummy')
-norge_flate = norge_flate.reset_index()
-del norge_flate['dummy']
-print(norge_flate)
-
-
 fig, ax = plt.subplots(figsize=(20,20))
 
 norge_flate.plot(ax=ax, color='w', edgecolor='k')
-#RdYlGn
+
 delfelt.plot(ax=ax, column='EnEkv', legend=True, cmap='Blues',  legend_kwds={'label': "Energiekvivalent til delfelt ($kWh/m^{3}$)",
                         'orientation': "vertical"}, vmax =3);  #viridis_r, Blues, Purples, BuPu, cool
 
