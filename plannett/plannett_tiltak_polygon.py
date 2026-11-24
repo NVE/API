@@ -10,7 +10,7 @@ Fra 2025 er det ikke lenger mulig å kartfeste tiltak med punkt i plannett, men 
 
 def plannett_tiltak_polygon():
     # URL of the service, WMS
-    url = 'https://gis3.nve.no/map/rest/services/Mapservices/PlanNettv2/MapServer/4/query'
+    url = 'https://gis3.nve.no/map/rest/services/Mapservices/PlanNettv3/MapServer/2/query'
 
     # Function to fetch data with pagination
     def fetch_data_with_pagination(url, params, batch_size=1000):
